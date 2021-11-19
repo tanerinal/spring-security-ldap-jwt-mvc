@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: spring-security-ldap-jwt-mvc
+server:
+  port: 8095
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+autz:
+  permitted:
+    paths:
+      finance: /finance-zone
+      business: /business-zone
+      all: /authenticate
+jwt:
+  secret: 58cr8t
+
+ldap:
+  url: ldaps://your_ldap_url
+  port: 636
+  directory:
+    root: your_root (i.e. dc=aaa,dc=bbb)
+  managerDN: your_user_to_connect_to_LDAP (i.e. uid=xxxx,ou=qqqq,dc=aaa,dc=bbb,dc=ccc)
+  managerPassword: your_manager_password
+  user:
+    base: LDAP_directory_under_which_your_users_exist (i.e. ou=ttt,o=ssss)
+    filter: Filter_used_while_querying_ldap (i.e. uid={0})
+  group:
+    base: LDAP_directory_under_which_your_users_roles_exist (i.e. ou=yyy,ou=kkk,dc=aaa,dc=bbb,dc=ccc)
