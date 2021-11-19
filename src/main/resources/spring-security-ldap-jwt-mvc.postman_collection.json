@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "4d716e78-a98b-41aa-b628-558b50b3e23e",
+		"name": "spring-security-ldap-jwt-mvc",
+		"description": "API call samples for project spring-security-ldap-jwt-mvc.\n\nGitHub:\nhttps://github.com/tanerinal/spring-security-ldap-jwt-mvc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"XXXX\",\n\t\"password\": \"YYYY\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8095/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Business",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer <place_retireved_token_here>"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8095/business-zone",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"business-zone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finance",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer <place_retireved_token_here>"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8095/finance-zone",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"finance-zone"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

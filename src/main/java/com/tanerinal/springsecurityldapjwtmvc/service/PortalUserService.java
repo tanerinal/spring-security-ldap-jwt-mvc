@@ -63,6 +63,9 @@ public class PortalUserService implements UserDetailsService {
 
     private BaseLdapPathContextSource contextSource;
 
+    /**
+     * Prepares LDAP context in order to use in authentication processes.
+     */
     @PostConstruct
     private void prepareLdapContext() {
         String ldapFullUrl = new StringBuilder(this.ldapUrl)
@@ -78,6 +81,15 @@ public class PortalUserService implements UserDetailsService {
         this.contextSource = localContextSource;
     }
 
+
+    /**
+     * Locates the user from remote LDAP and returns the information wrapped in a {@link PortalUserPrincipal} object.
+     *
+     * @param username: Username to be queried from LDAP. Mostly, case-insensitive.
+     * @return {@link UserDetails}
+     * @throws {@link UsernameNotFoundException} when there is no entry matches with <code>username</code>.
+     * @throws {@link IncorrectResultSizeDataAccessException} when there is more than one entry matches with <code>username</code>.
+     */
     @Override
     public UserDetails loadUserByUsername(String username) {
         try {
@@ -107,6 +119,15 @@ public class PortalUserService implements UserDetailsService {
         }
     }
 
+    /**
+     * Authenticates the user from remote LDAP by using <code>username</code> and <code>password</code> credentials provided.
+     * Populates the {@link SecurityContextHolder} with an {@link Authentication} object.
+     *
+     * @param username
+     * @param password
+     *
+     * @return An {@link AuthResponse} object populated with user detail information and a JWT token to be used in following calls.
+     */
     public AuthResponse authenticateUser(String username, String password) {
         Assert.isTrue(StringUtils.isNotBlank(username), "Username should not left blank!");
         Assert.isTrue(StringUtils.isNotBlank(password), "Password should not left blank!");
@@ -155,6 +176,11 @@ public class PortalUserService implements UserDetailsService {
         }
     }
 
+    /**
+     * Extracts the list of granted authorities from LDAP query result.
+     *
+     * @return A {@link List} of users roles defined in LDAP.
+     */
     private List<String> getGrantedAuthorities(DirContextOperations ldapResult) {
         if (ArrayUtils.isEmpty(ldapResult.getStringAttributes(Constants.LDAP_ATTRIBUTE_ISMEMBEROF))) {
             log.info("No roles found for user: {}. Returning empty granted authorities list.", ldapResult.getStringAttribute(Constants.LDAP_ATTRIBUTE_UID));
