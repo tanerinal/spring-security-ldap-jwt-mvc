@@ -6,4 +6,4 @@ Performs auth and autz for specific user by using JWT.
 **Note:** Before using, update `application.yml` with your LDAP server's information.
 
 The article about this project may be accessed via this link:
-https://dzone.com/articles/authenticationauthorization-with-jwt-in-remote-lda
+https://dzone.com/articles/user-authentication-remote-ldap-server
